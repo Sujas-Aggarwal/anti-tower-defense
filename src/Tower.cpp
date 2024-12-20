@@ -7,6 +7,7 @@ Tower::Tower()
     this->texture = ResourceManager::GetTexture("assets/tower.png");
     this->spriteRec = {0, 0, (float)this->texture.width / 11, (float)this->texture.height};
     this->position = {SCREEN_WIDTH / 2 - this->spriteRec.width/2, SCREEN_HEIGHT / 2 - this->spriteRec.height/2};
+    TARGET = this->position;
 }
 Tower::~Tower()
 {

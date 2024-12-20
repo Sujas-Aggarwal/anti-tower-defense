@@ -28,10 +28,11 @@ Enemy::Enemy()
 void Enemy::DRAW()
 {
     DrawTextureRec(this->texture, this->spriteRec, this->position, WHITE);
+    if (this->health==100) return;
     DrawRectangleLines(this->position.x + 25, this->position.y - 3, 50, 10, WHITE);
     DrawRectangle(this->position.x + 25, this->position.y - 3, this->health / 2, 10, RED);
 }
-void Enemy::UPDATE(int &FrameCounter, Vector2 &target)
+void Enemy::UPDATE(int &FrameCounter)
 {
     if (FrameCounter % 10 == 0)
     {
@@ -41,7 +42,7 @@ void Enemy::UPDATE(int &FrameCounter, Vector2 &target)
             this->spriteRec.x = 0;
         }
     }
-    Vector2 direction = {target.x - this->position.x, target.y - this->position.y};
+    Vector2 direction = {TARGET.x - this->position.x, TARGET.y - this->position.y};
     float length = sqrt(direction.x * direction.x + direction.y * direction.y);
     if (length == 0)
         return;
@@ -50,7 +51,7 @@ void Enemy::UPDATE(int &FrameCounter, Vector2 &target)
         direction.x /= length;
         direction.y /= length;
     }
-    if (this->position.x >= target.x)
+    if (this->position.x >= TARGET.x)
     {
         this->inverted = true;
         this->spriteRec.y = 11 * (float)this->texture.height / 20;
@@ -71,4 +72,12 @@ bool Enemy::isDead()
     if (this->health <= 0)
         return true;
     return false;
+}
+
+void Enemy::Summon(int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        ENEMIES.push_back(Enemy());
+    }
 }

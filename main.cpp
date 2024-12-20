@@ -14,15 +14,13 @@ int main()
     Tower MainTower;
     int FrameCounter = 0;
     float timeSinceEnemySpawn = 0;
-    ENEMIES.push_back(Enemy());
-    ENEMIES.push_back(Enemy());
-
+    //initial monster summoning
+    Enemy::Summon(10);
     if (!IsWindowReady())
     {
         std::cerr << "Error: Window not initialized properly!" << std::endl;
         return 1;
     }
-    std::cout << "Entering game loop..." << std::endl;
     while (!WindowShouldClose())
     {
         FrameCounter++;
@@ -33,10 +31,7 @@ int main()
         timeSinceEnemySpawn += GetFrameTime();
         if (timeSinceEnemySpawn >= 10)
         {
-            for (int i = 0; i < ENEMY_SPAWN_RATE; i++)
-            {
-                ENEMIES.push_back(Enemy());
-            }
+            Enemy::Summon(ENEMY_SPAWN_RATE);
             timeSinceEnemySpawn = 0;
             ENEMY_SPAWN_RATE += (int)(ENEMY_SPAWN_RATE * 0.2);
         }
@@ -52,20 +47,20 @@ int main()
             }
             else
             {
-                enemy.UPDATE(FrameCounter, TARGET);
+                enemy.UPDATE(FrameCounter);
             }
         }
         BeginDrawing();
         ClearBackground(WHITE);
-        MainTower.DRAW();
         //draw inside camera---------------------------
+        BeginMode2D(MainCamera);
         for (Enemy &enemy : ENEMIES)
         {
             enemy.DRAW();
         }
         EndMode2D();
         //draw over camera-----------------------------
-        BeginMode2D(MainCamera);
+        MainTower.DRAW();
         EndDrawing();
     }
     std::cout<<"Exiting the game loop"<<std::endl;

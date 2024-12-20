@@ -14,8 +14,9 @@ private:
 
 public:
     Enemy();
-    void UPDATE(int &FrameCounter, Vector2 &target);
+    void UPDATE(int &FrameCounter);
     void DRAW();
     bool isDead();
+    static void Summon(int count);
     ~Enemy();
 };
