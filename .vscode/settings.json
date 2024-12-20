@@ -1,0 +1,23 @@
+{
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/*.o": true,
+		"**/*.exe": false,
+	},
+	"files.associations": {
+		"iostream": "cpp",
+		"*.m": "cpp",
+		"array": "cpp",
+		"*.tcc": "cpp",
+		"deque": "cpp",
+		"string": "cpp",
+		"vector": "cpp",
+		"memory_resource": "cpp",
+		"optional": "cpp",
+		"functional": "cpp"
+	}
+}
