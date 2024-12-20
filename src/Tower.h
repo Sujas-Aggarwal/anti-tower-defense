@@ -2,6 +2,7 @@
 #include <raylib.h>
 enum TowerLevel
 {
+    // TODO: Add non-linear upgrade paths
     STAGE1,
     STAGE2,
     STAGE3
@@ -11,29 +12,14 @@ class Tower
 private:
     TowerLevel towerLevel = TowerLevel::STAGE1;
     Vector2 position = {100, 100};
-
+    void UPGRADE()
+    {
+        towerLevel = static_cast<TowerLevel>(towerLevel + 1);
+    };
+    int speed = 200;
 public:
     Tower();
-    void UPDATE(
-    ){
-        if (IsKeyDown(KEY_UP))
-        {
-            position.y -= 1;
-        }
-        if (IsKeyDown(KEY_DOWN))
-        {
-            position.y += 1;
-        }
-        if (IsKeyDown(KEY_LEFT))
-        {
-            position.x -= 1;
-        }
-        if (IsKeyDown(KEY_RIGHT))
-        {
-            position.x += 1;
-        }
-    };
+    void UPDATE();
     void DRAW();
-    void UPGRADE();
     ~Tower();
 };

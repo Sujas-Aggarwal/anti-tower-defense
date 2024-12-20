@@ -11,7 +11,10 @@ int main()
     Tower tower;
     while (!WindowShouldClose())
     {
+        tower.UPDATE();
         BeginDrawing();
+        ClearBackground(BLACK);
+        tower.DRAW();
         EndDrawing();
     }
     CloseWindow();
