@@ -1,9 +1,10 @@
 #pragma once
 #include <src/Enemy.h>
+#include <src/ResourceManager.h>
 #include <math.h>
 Enemy::Enemy()
 {
-    this->texture = LoadTexture("assets/enemy2.png");
+    this->texture = ResourceManager::GetTexture("assets/enemy2.png");
     this->spriteRec = {0, (float)this->texture.height / 20, 96, (float)this->texture.height / 20};
     this->position = generateRandomLocation(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
 }
@@ -32,6 +33,4 @@ void Enemy::UPDATE(int &FrameCounter, Vector2 &target)
     this->position.y += direction.y * speed * GetFrameTime();
 }
 Enemy::~Enemy()
-{
-    // UnloadTexture(this->texture);
-}
+{}

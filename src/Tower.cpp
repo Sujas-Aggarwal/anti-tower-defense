@@ -1,16 +1,15 @@
 #pragma once
-#include <src/Tower.h>
 #include <iostream>
+#include <src/Tower.h>
+#include <src/ResourceManager.h>
 Tower::Tower()
 {
-    this->texture = LoadTexture("assets/tower.png");
+    this->texture = ResourceManager::GetTexture("assets/tower.png");
     this->spriteRec = {0, 0, (float)this->texture.width / 11, (float)this->texture.height};
     std::cout << "Created Tower" << std::endl;
 }
 Tower::~Tower()
 {
-    std::cout << "Tower is Destroyed" << std::endl;
-    UnloadTexture(this->texture);
 }
 void Tower::DRAW()
 {
