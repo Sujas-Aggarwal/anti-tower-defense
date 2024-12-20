@@ -25,24 +25,49 @@ void Tower::DRAW()
     }
 };
 void Tower::UPDATE()
-{  
-    if (IsKeyDown(KEY_UP))
+{ 
+    float xval = 0;
+    float yval = 0;
+    const float normalized = 1/1.41421356237;
+    if (IsKeyDown(KEY_UP) && IsKeyDown(KEY_RIGHT))
     {
-        position.y -= speed * GetFrameTime();
+        xval = normalized;
+        yval = -normalized;
     }
-    if (IsKeyDown(KEY_DOWN))
+    else if (IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT))
     {
-        position.y += speed * GetFrameTime();
+        xval = -normalized;
+        yval = -normalized;
     }
-    if (IsKeyDown(KEY_LEFT))
+    else if (IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_RIGHT))
     {
-        position.x -= speed * GetFrameTime();
+        xval = normalized;
+        yval = normalized;
     }
-    if (IsKeyDown(KEY_RIGHT))
+    else if (IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT))
     {
-        position.x += speed * GetFrameTime();
+        xval = -normalized;
+        yval = normalized;
     }
-    if (IsKeyDown(KEY_SPACE))
+    else if (IsKeyDown(KEY_UP))
+    {
+        yval = -1;
+    }
+    else if (IsKeyDown(KEY_DOWN))
+    {
+        yval = 1;
+    }
+    else if (IsKeyDown(KEY_RIGHT))
+    {
+        xval = 1;
+    }
+    else if (IsKeyDown(KEY_LEFT))
+    {
+        xval = -1;
+    }
+    position.x += xval * speed * GetFrameTime();
+    position.y += yval * speed * GetFrameTime();
+    if (IsKeyPressed(KEY_SPACE))
     {
         UPGRADE();
     }

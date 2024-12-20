@@ -7,7 +7,7 @@ const int SCREEN_HEIGHT = 900;
 int main()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Final Showdown");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
     Tower tower;
     while (!WindowShouldClose())
     {

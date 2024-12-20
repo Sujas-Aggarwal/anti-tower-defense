@@ -12,11 +12,15 @@ class Tower
 private:
     TowerLevel towerLevel = TowerLevel::STAGE1;
     Vector2 position = {100, 100};
+    int speed = 250;
     void UPGRADE()
     {
+        if (towerLevel == TowerLevel::STAGE3)
+        {
+            return;
+        }
         towerLevel = static_cast<TowerLevel>(towerLevel + 1);
     };
-    int speed = 200;
 public:
     Tower();
     void UPDATE();
