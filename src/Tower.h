@@ -1,5 +1,6 @@
 #pragma once
 #include <raylib.h>
+#include <src/GLOBALS.h>
 enum TowerLevel
 {
     // TODO: Add non-linear upgrade paths
@@ -13,15 +14,13 @@ private:
     Texture2D texture;
     Rectangle spriteRec;
     TowerLevel towerLevel = TowerLevel::STAGE1;
-    Vector2 position = {100, 100};
-    float health = 100;
+    Vector2 position = target;
+    int health = 100;
     int speed = 250;
     void UPGRADE()
     {
         if (towerLevel == TowerLevel::STAGE3)
-        {
             return;
-        }
         towerLevel = static_cast<TowerLevel>(towerLevel + 1);
     };
 

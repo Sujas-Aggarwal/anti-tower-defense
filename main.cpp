@@ -1,25 +1,23 @@
 #include <iostream>
 #include <raylib.h>
-#include<vector>
-#include<src/GLOBALS.h>
-#include<src/Tower.cpp>
-#include<src/Enemy.cpp>
-#include<src/Wave.cpp>
-using namespace std;
-
+#include <vector>
+#include <src/Tower.cpp>
+#include <src/Enemy.cpp>
+#include <src/Wave.cpp>
+#include <src/GLOBALS.h>
 int main()
 {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Final Showdown");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tower Attack");
     SetTargetFPS(60);
     Tower tower;
-    WaveC wave;
-    std::vector<Enemy> enemies(2);
-    for (auto &enemy:enemies)
-    {
-        enemy = Enemy();
-    }
     int FrameCounter = 0;
     float timeSinceEnemySpawn = 0;
+    if (!IsWindowReady())
+    {
+        std::cerr << "Error: Window not initialized properly!" << std::endl;
+        return 1;
+    }
+    std::cout << "Entering game loop..." << std::endl;
     while (!WindowShouldClose())
     {
         FrameCounter++;
@@ -27,26 +25,37 @@ int main()
         {
             FrameCounter = 0;
         }
-        timeSinceEnemySpawn+= GetFrameTime();
-        if (timeSinceEnemySpawn>=10)
+        timeSinceEnemySpawn += GetFrameTime();
+        if (timeSinceEnemySpawn >= 10)
         {
-            enemies.push_back(Enemy());
+            for (int i = 0; i < ENEMY_SPAWN_RATE; i++)
+            {
+                ENEMIES.push_back(Enemy());
+            }
             timeSinceEnemySpawn = 0;
+            ENEMY_SPAWN_RATE += (int)(ENEMY_SPAWN_RATE * 0.2);
         }
-        tower.UPDATE(FrameCounter,target);
-        for (auto &enemy:enemies)
+        tower.UPDATE(FrameCounter, target);
+        for (Enemy &enemy : ENEMIES)
         {
-            enemy.UPDATE(FrameCounter,target);
+            if (enemy.isDead())
+            {
+                // TODO:delete this enemy
+            }
+            else
+            {
+                enemy.UPDATE(FrameCounter, target);
+            }
         }
         BeginDrawing();
         ClearBackground(WHITE);
         tower.DRAW();
-        for (auto &enemy:enemies)
+        for (Enemy &enemy : ENEMIES)
         {
             enemy.DRAW();
         }
-        wave.DRAW(target);
         EndDrawing();
     }
+    std::cout<<"Exiting the game loop"<<std::endl;
     CloseWindow();
 }

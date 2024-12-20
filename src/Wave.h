@@ -1,5 +1,7 @@
 #pragma once
 #include <raylib.h>
+#include<vector>
+#include<src/Enemy.cpp>
 class WaveC{
     private:
     float radius = 0;
@@ -9,5 +11,6 @@ class WaveC{
     public:
         WaveC();
         void DRAW(Vector2 position);
+        void UPDATE(std::vector<Enemy> &enemies);
         ~WaveC();
 };

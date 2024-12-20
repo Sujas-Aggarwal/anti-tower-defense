@@ -6,7 +6,6 @@ Tower::Tower()
 {
     this->texture = ResourceManager::GetTexture("assets/tower.png");
     this->spriteRec = {0, 0, (float)this->texture.width / 11, (float)this->texture.height};
-    std::cout << "Created Tower" << std::endl;
 }
 Tower::~Tower()
 {
