@@ -10,8 +10,10 @@ enum TowerLevel
 class Tower
 {
 private:
+    Texture2D texture;
+    Rectangle spriteRec;
     TowerLevel towerLevel = TowerLevel::STAGE1;
-    Vector2 position = {100, 100};
+    Vector2 position;
     int speed = 250;
     void UPGRADE()
     {
@@ -21,6 +23,7 @@ private:
         }
         towerLevel = static_cast<TowerLevel>(towerLevel + 1);
     };
+
 public:
     Tower();
     void UPDATE();
