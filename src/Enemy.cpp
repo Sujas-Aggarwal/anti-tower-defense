@@ -29,6 +29,16 @@ void Enemy::UPDATE(int &FrameCounter, Vector2 &target)
         direction.x /= length;
         direction.y /= length;
     }
+    if (this->position.x > target.x)
+    {
+        this->inverted = true;
+        this->spriteRec.y = 11*(float)this->texture.height / 20;
+    }
+    else
+    {
+        this->inverted = false;
+        this->spriteRec.y = (float)this->texture.height / 20;
+    }
     this->position.x += direction.x * speed * GetFrameTime();
     this->position.y += direction.y * speed * GetFrameTime();
 }

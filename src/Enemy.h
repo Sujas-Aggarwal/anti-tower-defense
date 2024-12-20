@@ -23,6 +23,7 @@ private:
     Rectangle spriteRec;
     Vector2 position;
     int speed = 150;
+    bool inverted = false;
 public:
     Enemy();
     void UPDATE(int &FrameCounter,Vector2 &target);
