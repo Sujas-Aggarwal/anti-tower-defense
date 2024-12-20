@@ -14,8 +14,10 @@ Tower::~Tower()
 }
 void Tower::DRAW()
 {
-    // DrawRectangle(position.x, position.y, 100, 100, WHITE);
     DrawTextureRec(this->texture, this->spriteRec, this->position, WHITE);
+    DrawText("HEALTH:", 50, 30, 20, BLACK);
+    DrawRectangleLines(50, 50, 200, 30, WHITE);
+    DrawRectangle(50, 50, health*2,30, RED);
     // switch (towerLevel)
     // {
     // case TowerLevel::STAGE1:
@@ -29,11 +31,19 @@ void Tower::DRAW()
     //     break;
     // }
 };
-void Tower::UPDATE()
+void Tower::UPDATE(int &FrameCounter, Vector2 &target)
 {
     float xval = 0;
     float yval = 0;
-    
+    if (FrameCounter % 10 == 0)
+    {
+        this->spriteRec.x += this->spriteRec.width;
+        if (this->spriteRec.x >= this->texture.width)
+        {
+            this->spriteRec.x = 0;
+        }
+    }
+
     const float normalized = 1 / 1.41421356237;
     if (IsKeyReleased(KEY_SPACE))
     {
@@ -77,4 +87,5 @@ void Tower::UPDATE()
     }
     position.x += xval * speed * GetFrameTime();
     position.y += yval * speed * GetFrameTime();
+    target = {position.x +(float)this->texture.width / 11/2, position.y + (float)this->texture.width / 11/2};
 }
