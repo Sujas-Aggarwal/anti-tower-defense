@@ -5,18 +5,18 @@
 #include <src/Enemy.cpp>
 #include <src/Wave.cpp>
 #include <src/GLOBALS.h>
+#include <src/CustomCamera.cpp>
 int main()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tower Attack");
     SetTargetFPS(60);
-    Camera2D camera = {0};
-    camera.target = target;
-    camera.offset = {SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
-    camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
-    Tower tower;
+    CustomCamera MainCamera;
+    Tower MainTower;
     int FrameCounter = 0;
     float timeSinceEnemySpawn = 0;
+    ENEMIES.push_back(Enemy());
+    ENEMIES.push_back(Enemy());
+
     if (!IsWindowReady())
     {
         std::cerr << "Error: Window not initialized properly!" << std::endl;
@@ -40,25 +40,10 @@ int main()
             timeSinceEnemySpawn = 0;
             ENEMY_SPAWN_RATE += (int)(ENEMY_SPAWN_RATE * 0.2);
         }
-        // tower.UPDATE(FrameCounter, target);
-        if (IsKeyDown(KEY_UP))
-        {
-            target.y -= 5;
-        }
-        if (IsKeyDown(KEY_DOWN))
-        {
-            target.y += 5;
-        }
-        if (IsKeyDown(KEY_LEFT))
-        {
-            target.x -= 5;
-        }
-        if (IsKeyDown(KEY_RIGHT))
-        {
-            target.x += 5;
-        }
+        
         //update camera
-        camera.target = target;
+        MainCamera.UPDATE();
+        MainTower.UPDATE(FrameCounter);
         for (Enemy &enemy : ENEMIES)
         {
             if (enemy.isDead())
@@ -67,17 +52,20 @@ int main()
             }
             else
             {
-                enemy.UPDATE(FrameCounter, target);
+                enemy.UPDATE(FrameCounter, TARGET);
             }
         }
         BeginDrawing();
         ClearBackground(WHITE);
-        BeginMode2D(camera);
-        tower.DRAW();
+        MainTower.DRAW();
+        //draw inside camera---------------------------
         for (Enemy &enemy : ENEMIES)
         {
             enemy.DRAW();
         }
+        EndMode2D();
+        //draw over camera-----------------------------
+        BeginMode2D(MainCamera);
         EndDrawing();
     }
     std::cout<<"Exiting the game loop"<<std::endl;

@@ -23,7 +23,7 @@ Enemy::Enemy()
 {
     this->texture = ResourceManager::GetTexture("assets/enemy2.png");
     this->spriteRec = {0, (float)this->texture.height / 20, 96, (float)this->texture.height / 20};
-    this->position = generateRandomLocation(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
+    this->position = generateRandomLocation(TARGET.x - SCREEN_WIDTH/2,TARGET.x + SCREEN_WIDTH/2, TARGET.y - SCREEN_HEIGHT/2, TARGET.y + SCREEN_HEIGHT/2);
 }
 void Enemy::DRAW()
 {

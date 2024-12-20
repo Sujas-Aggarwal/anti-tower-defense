@@ -14,7 +14,7 @@ private:
     Texture2D texture;
     Rectangle spriteRec;
     TowerLevel towerLevel = TowerLevel::STAGE1;
-    Vector2 position = target;
+    Vector2 position = {SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
     int health = 100;
     int speed = 250;
     void UPGRADE()
@@ -26,7 +26,7 @@ private:
 
 public:
     Tower();
-    void UPDATE(int &FrameCounter, Vector2 &target);
+    void UPDATE(int &FrameCounter);
     void DRAW();
     ~Tower();
 };

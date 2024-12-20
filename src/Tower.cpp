@@ -6,6 +6,7 @@ Tower::Tower()
 {
     this->texture = ResourceManager::GetTexture("assets/tower.png");
     this->spriteRec = {0, 0, (float)this->texture.width / 11, (float)this->texture.height};
+    this->position = {SCREEN_WIDTH / 2 - this->spriteRec.width/2, SCREEN_HEIGHT / 2 - this->spriteRec.height/2};
 }
 Tower::~Tower()
 {
@@ -29,10 +30,9 @@ void Tower::DRAW()
     //     break;
     // }
 };
-void Tower::UPDATE(int &FrameCounter, Vector2 &target)
+void Tower::UPDATE(int &FrameCounter)
 {
-    float xval = 0;
-    float yval = 0;
+
     if (FrameCounter % 10 == 0)
     {
         this->spriteRec.x += this->spriteRec.width;
@@ -41,49 +41,8 @@ void Tower::UPDATE(int &FrameCounter, Vector2 &target)
             this->spriteRec.x = 0;
         }
     }
-
-    const float normalized = 1 / 1.41421356237;
     if (IsKeyReleased(KEY_SPACE))
     {
         UPGRADE();
     }
-    if (IsKeyDown(KEY_UP) && IsKeyDown(KEY_RIGHT))
-    {
-        xval = normalized;
-        yval = -normalized;
-    }
-    else if (IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT))
-    {
-        xval = -normalized;
-        yval = -normalized;
-    }
-    else if (IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_RIGHT))
-    {
-        xval = normalized;
-        yval = normalized;
-    }
-    else if (IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT))
-    {
-        xval = -normalized;
-        yval = normalized;
-    }
-    else if (IsKeyDown(KEY_UP))
-    {
-        yval = -1;
-    }
-    else if (IsKeyDown(KEY_DOWN))
-    {
-        yval = 1;
-    }
-    else if (IsKeyDown(KEY_RIGHT))
-    {
-        xval = 1;
-    }
-    else if (IsKeyDown(KEY_LEFT))
-    {
-        xval = -1;
-    }
-    position.x += xval * speed * GetFrameTime();
-    position.y += yval * speed * GetFrameTime();
-    target = {position.x +(float)this->texture.width / 11/2, position.y + (float)this->texture.width / 11/2};
 }
